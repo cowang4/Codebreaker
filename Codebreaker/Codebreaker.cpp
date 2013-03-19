@@ -38,39 +38,44 @@ int _tmain(int argc, _TCHAR* argv[])
 	modelist = decoder(stm,8, common_letters);
 	cout << modelist << endl;
 
+	//try our seccond guess with random top eight most commonly used letters
 	modelist = decoder(stm,8, rantop8);
 	cout << modelist << endl;
 	return 0;
 }
 
-std::list<CFreq::freq_pair> decoder (istream *stm, int char_to_try, char* letters)
+std::list<CFreq::freq_pair> decoder (istream *stm, int char_to_try, char* letters)//called by main with a filestream
 {
 	std::list<CFreq::freq_pair> modelist;
 	string word; 
 	list<string> cypher;
 	do
 	{
+		//reads the words from the file to a list of words
 		*stm >> word;
 		cypher.push_back (word);
 	}
-	while ( stm->eof() != 1);	
+	while ( stm->eof() != 1);//cancel the do after no more words in istream (file)	
 	modelist = decoder (cypher, char_to_try, letters);
 	return modelist;
 
 }
-std::list<CFreq::freq_pair> decoder (list<string> cypher, int char_to_try, char* letters)
+std::list<CFreq::freq_pair> decoder (list<string> cypher, int char_to_try, char* letters)//gets called by decoder above that filters out words
 {
 	std::list<CFreq::freq_pair> modelist;
 
-	// Starting to add an if statement to check if the cyper list is empty.  Got interrupted
-	if (*cypher != >1
-	modelist = CFreq::compute_freq (cypher);
-	std::list<CFreq::freq_pair>::iterator mlit = modelist.begin ();
-	list<CGuess> guess;
+	// Starting to add an if statement to check if the cyper list is empty.  Got interrupted //maybe fixed this, needs testing
+	if (cypher.size() >1)
+		return modelist;
+
+	modelist = CFreq::compute_freq (cypher);//calculates most used letters in cypher, and arranges them from greatest to least used
+	std::list<CFreq::freq_pair>::iterator mlit = modelist.begin();
+	list<CGuess> guess;//list of guesses
 
 	CFreq::freq_pair cur_freq_letter = (*mlit);
 	mlit++;
 
+	//starts guessing the answers to the cypher, word by word
 	for( list<string>::iterator it = cypher.begin(); it != cypher.end(); it++ )
 	{
 		string word = (*it);
