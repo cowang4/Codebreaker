@@ -1,4 +1,4 @@
-Monoalphabetic Substitution Cypher Solver using Frequency Analysis#
+#Monoalphabetic Substitution Cypher Solver using Frequency Analysis#
 
 The app attempts to solve cyphers with frequency analysis.
 So it doesn't work yet...
