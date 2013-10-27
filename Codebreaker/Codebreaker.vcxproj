@@ -76,6 +76,7 @@
     <None Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Freq.h" />
     <ClInclude Include="Grader.h" />
     <ClInclude Include="Guess.h" />
     <ClInclude Include="LetterCount.h" />

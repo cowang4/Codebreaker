@@ -1,5 +1,6 @@
 #pragma once
 #include "LetterCount.h"
+#include "Guess.h"
 
 class CFreq
 {
@@ -16,7 +17,7 @@ public:
 		bool operator>  (const freq_pair &rhs) const { return this->second > rhs.second; }
 	};
 	
-	static std::list<CFreq::freq_pair> compute_freq( list<string> &words );
+	static std::list<CFreq::freq_pair> compute_freq( list<CGuess> &words );
 };
 
 template<class _Elem,

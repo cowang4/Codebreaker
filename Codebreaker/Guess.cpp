@@ -8,8 +8,8 @@ CGuess::~CGuess(void)
 void CGuess::substitute( char oldletter, char newletter )
 {
 	string new_guess;
-	new_guess = substitute( origword, guessword, oldletter, newletter );
-	guessword = new_guess;
+	new_guess = substitute( this->origword, this->guessword, oldletter, newletter );
+	this->guessword = new_guess;
 }
 
 string CGuess::substitute( string word, char oldletter, char newletter )
