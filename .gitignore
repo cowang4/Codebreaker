@@ -3,7 +3,7 @@
 *.out
 codebreaker
 *.gch
-
+encode
 
 #################
 ## Eclipse
