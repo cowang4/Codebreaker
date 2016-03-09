@@ -4,6 +4,8 @@
 codebreaker
 *.gch
 encode
+decode
+*.o
 
 #################
 ## Eclipse

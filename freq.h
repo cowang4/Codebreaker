@@ -1,6 +1,10 @@
+#ifndef FREQ_H
+#define FREQ_H
+
 #include <map>
 #include <string>
 #include <iostream>
+#include "grade.h"
 
 class Freq {
 public:
@@ -12,6 +16,7 @@ public:
   //accessors
   static double get_percentage(char c);
   static int get_count(char c);
+  static double get_english_percentage(char c);
 private:
   //private acessors
   static double get_percentage(std::map<char,int>::iterator it);
@@ -22,7 +27,7 @@ private:
   static unsigned int total_count;
 };
 
-static std::map<char, double> english_percentages;
+std::map<char, double> Freq::english_percentages;
 unsigned int Freq::total_count = 0;
 std::map<char,int> Freq::cyphertext_counts;
 
@@ -99,3 +104,10 @@ int Freq::get_count(std::map<char,int>::iterator it) {
   if (it == cyphertext_counts.end()) return 0;
   return it->second;
 }
+
+double Freq::get_english_percentage(char c) {
+  std::map<char, double>::iterator it = english_percentages.find(c);
+  return it->second;
+}
+
+#endif //FREQ_H
