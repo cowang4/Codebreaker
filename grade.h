@@ -4,14 +4,17 @@
 #include <set>
 #include <fstream>
 #include <sstream>
+#include <vector>
 #include "freq.h"
+
+using namespace std;
 
 class Grade {
 public:
   Grade();
   //grading functions
   static bool is_word(std::string s);
-  static double percent_words(std::string guess_text);
+  static double percent_words(std::vector<std::string> guess_text);
 private:
   static std::set<std::string> english_words;
 };
@@ -27,18 +30,42 @@ Grade::Grade() {
 }
 
 bool Grade::is_word(std::string s) {
-  std::set<std::string>::iterator it = english_words.find(s);
+  std::set<std::string>::iterator it;
+
+  while (!isalpha(s[s.size()-1])) {
+    s = s.substr(0,s.size()-1);
+  }
+  while (!isalpha(s[0])) {
+    s = s.substr(1);
+  }
+  while (!isalpha(s[s.size()-1])) {
+    s = s.substr(0,s.size()-1);
+  }
+
+  bool proper_nown = isupper(s[0]);
+
+  for (string::size_type j = 0; j < s.size(); ++j) {
+    if (isalpha(s[j]))
+      s[j] = tolower(s[j]);
+  }
+
+
+  it = english_words.find(s);
   if (it != english_words.end()) return true;
+  if (proper_nown) {
+    s[0] = toupper(s[0]);
+    it = english_words.find(s);
+    if (it != english_words.end()) return true;
+  }
   return false;
 }
 
-double Grade::percent_words(std::string guess_text) {
-  std::stringstream ss(guess_text);
-  std::string word;
+double Grade::percent_words(std::vector<std::string> guess_text) {
   int correct = 0;
   int total = 0;
-  while (getline(ss,word,' ')) {
-    if (is_word(word)) ++correct;
+  for (unsigned int i = 0; i < guess_text.size(); ++i) {
+    if (is_word(guess_text[i])) ++correct;
+    else std::cout << guess_text[i] << "\n";
     ++total;
   }
   return (double)correct*100.0 / (double)total;

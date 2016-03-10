@@ -63,22 +63,20 @@ Freq::Freq() {
 void Freq::count_letter_freq(const std::string &word) {
   for (unsigned int i = 0; i < word.size(); ++i) {
     char c = tolower(word[i]);
-    if (!isalpha(c)) {
-      std::cerr << "ERROR: input char not a letter.\n";
-      continue;
-    }
-    total_count += 1;
-    std::pair<std::map<char,int>::iterator,bool> pair = cyphertext_counts.insert(std::pair<char,int>(c,1));
-    if (pair.second == false) {
-      pair.first->second += 1;
+    if (isalpha(c)) {
+      total_count += 1;
+      std::pair<std::map<char,int>::iterator,bool> pair = cyphertext_counts.insert(std::pair<char,int>(c,1));
+      if (pair.second == false) {
+        pair.first->second += 1;
+      }
     }
   }
 }
 
 void Freq::print_cyphertext_counts_and_percentages() {
-  std::cout << "Total char count (excluding spaces): " << total_count << "\n";
+  std::cout << "char\tcount\t%\ttotal count: " << total_count << "\n";
   for (std::map<char,int>::iterator it = cyphertext_counts.begin(); it != cyphertext_counts.end(); ++it) {
-    std::cout << "char:\t" << it->first << "\t" << get_count(it) << "\t" << get_percentage(it) << "%\n";
+    std::cout << it->first << "\t" << get_count(it) << "\t" << get_percentage(it) << "%\n";
   }
 }
 
