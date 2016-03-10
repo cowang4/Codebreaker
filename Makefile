@@ -1,14 +1,17 @@
-decode: main.o
-	g++ main.o -o decode
+CC = g++
+CFLAGS = -Wall
 
-main.o: main.cpp
-	g++ -c main.cpp
+decode: main.o
+	$(CC) $(CFLAGS) -o decode main.o
+
+main.o: main.cpp freq.h grade.h
+	$(CC) $(CFLAGS) -c main.cpp
 
 encode: encode.o
-	g++ encode.o -o encode
+	$(CC) $(CFLAGS) encode.o -o encode
 
 encode.o: encode.cpp
-	g++ -c encode.cpp
+	$(CC) $(CFLAGS) -c encode.cpp
 
 clean:
 	rm *.o encode decode
