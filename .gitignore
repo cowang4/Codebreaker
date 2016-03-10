@@ -6,6 +6,7 @@ codebreaker
 encode
 decode
 *.o
+*.pdf
 
 #################
 ## Eclipse
