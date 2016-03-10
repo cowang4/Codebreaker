@@ -22,10 +22,10 @@ int main() {
   set<char> used;
   string cyphertext = plaintext;
   for (int i = 0; i < 26; ++i) {
-    char oldchar = static_cast<char>(i+97);
+    char oldchar = static_cast<unsigned char>(i+97);
     char newchar;
     do {
-      newchar = static_cast<char>((rand() % 26) + 97);
+      newchar = static_cast<unsigned char>((rand() % 26) + 97);
     } while (used.count(newchar) == 1);
     for (unsigned int j = 0; j < plaintext.size(); ++j) {
       if (plaintext[j] == oldchar) {
