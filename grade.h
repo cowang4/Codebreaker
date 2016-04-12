@@ -5,6 +5,7 @@
 #include <fstream>
 #include <sstream>
 #include <vector>
+#include <cctype>
 #include "freq.h"
 
 using namespace std;
@@ -15,6 +16,8 @@ public:
   //grading functions
   static bool is_word(std::string s);
   static double percent_words(std::vector<std::string> guess_text);
+  static string clean_word(string s);
+  static vector<string> clean_text(vector<string> &text);
 private:
   static std::set<std::string> english_words;
 };
@@ -27,11 +30,10 @@ Grade::Grade() {
   while (dict >> s) {
     english_words.insert(english_words.end(),s);
   }
+  cout << "Dictionary size: " << english_words.size() << endl;
 }
 
-bool Grade::is_word(std::string s) {
-  std::set<std::string>::iterator it;
-
+string Grade::clean_word(string s) {
   while (!isalpha(s[s.size()-1])) {
     s = s.substr(0,s.size()-1);
   }
@@ -41,23 +43,32 @@ bool Grade::is_word(std::string s) {
   while (!isalpha(s[s.size()-1])) {
     s = s.substr(0,s.size()-1);
   }
-
-  bool proper_nown = isupper(s[0]);
-
   for (string::size_type j = 0; j < s.size(); ++j) {
     if (isalpha(s[j]))
       s[j] = tolower(s[j]);
   }
+  return s;
+}
+bool Grade::is_word(std::string s) {
+  std::set<std::string>::iterator it;
 
+  s = clean_word(s);
 
   it = english_words.find(s);
   if (it != english_words.end()) return true;
-  if (proper_nown) {
-    s[0] = toupper(s[0]);
-    it = english_words.find(s);
-    if (it != english_words.end()) return true;
-  }
+  s[0] = toupper(s[0]);
+  it = english_words.find(s);
+  if (it != english_words.end()) return true;
+  
   return false;
+}
+
+vector<string> Grade::clean_text(vector<string> &text) {
+  vector<string> cleaned;
+  for (unsigned int i = 0; i < text.size(); ++i) {
+    cleaned.push_back(clean_word(text[i]));
+  }
+  return cleaned;
 }
 
 double Grade::percent_words(std::vector<std::string> guess_text) {
@@ -71,5 +82,13 @@ double Grade::percent_words(std::vector<std::string> guess_text) {
   return (double)correct*100.0 / (double)total;
 }
 
+bool Grade::is_valid(string word) {
+  for (unsigned int i = 0; i < english_words.size(); ++i) {
+    for (int j = 0; j < word.size(); ++j) {
+      if (isupper(word[i]) 
+        bool poop = true;
+    }
+  }
+}
 
 #endif //GRADE_H
