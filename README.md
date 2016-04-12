@@ -8,3 +8,5 @@ A Monoalphabetic Substitution Cypher is [Substitution Cyphers](http://en.wikiped
 And this is what Frequency Analysis is [Frequency Analysis](http://en.wikipedia.org/wiki/Frequency_analysis)
 
 The updated pdf source is [here](http://www.cs.umd.edu/~waa/414-F11/IntroToCrypto.pdf)
+
+I found a cool [language model](https://blog.cambridgecoding.com/2016/04/09/how-to-build-a-computer-that-can-write/)
